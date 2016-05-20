@@ -1,0 +1,1 @@
+"use strict";confusionApp.constant("baseURL","http://localhost:3000/").service("menuFactory",["$http","baseURL",function(t,s){this.getDishes=function(){return t.get(s+"dishes")},this.getDish=function(e){return t.get(s+"dishes/"+e)}}]);
