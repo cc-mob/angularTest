@@ -123,7 +123,7 @@ confusionApp
 
                         if(res.response.dataSet[0].recordSet[0].record == undefined || res.response.dataSet[0].recordSet[0].record == null){
                             response.success = false;
-                            response.message = 'Username or password is incorrect';
+                            response.message = 'ID또는Password가 다릅니다. ID는 사번이며 최초패스워드는 사번과 동일합니다. 패스워드를 변경하시려면 Hi-OMS PC버전의 로그인화면에서 비밀번호찾기를 통해 변경하시기 바랍니다.';
                         }else{
                             emp_id = res.response.dataSet[0].recordSet[0].record[0].EMP_ID; //emp_id
                             eno = res.response.dataSet[0].recordSet[0].record[0].ENO; //사번
