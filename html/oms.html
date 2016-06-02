@@ -1,0 +1,24 @@
+<div>
+    <table>
+        <tr ng-repeat="p in omses">
+            <td>{{p.name}}</td>
+            <td>{{p.eno}}</td>
+        </tr>
+    </table>
+</div>
+
+<form name="form" ng-submit="getImage()" role="form">
+    <div class="form-group">
+        <label for="empId">empId</label>
+        <input type="text" name="empId" id="empId" class="form-control" ng-model="empId" />
+    </div>
+    <div class="form-actions">
+        <button type="submit" class="btn btn-danger">이미지가져오기</button>
+    </div>
+
+</form>
+
+
+<div>
+    <img data-ng-src="{{image}}"/>
+</div>

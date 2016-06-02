@@ -1,0 +1,26 @@
+{
+  "name": "angularTest",
+  "version": "1.0.0",
+  "description": "Website for an awesome restaurant",
+  "main": "index.html",
+  "moduleType": [],
+  "keywords": [
+    "angularTest"
+  ],
+  "authors": [
+    "LYH"
+  ],
+  "license": "SKCC",
+  "homepage": "",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components"
+  ],
+  "dependencies": {
+    "bootstrap": "~3.3.5",
+    "font-awesome": "~4.4.0",
+    "angular": "~1.4.7",
+    "angular-cookies": "^1.5.5"
+  }
+}
