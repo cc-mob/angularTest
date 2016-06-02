@@ -9,14 +9,19 @@
     <!-- The above 3 meta tags *must* come first in the head; any other head
          content must come *after* these tags -->
 
-    <title>Ristorante Con Fusion</title>
+    <title>SKCC-MOMS</title>
         <!-- Bootstrap -->
 <!-- build:css styles/main.css -->
-    <link href="/bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="/bower_components/bootstrap/dist/css/bootstrap-theme.min.css" rel="stylesheet">
+    <link href="/bower_components/bootstrap/dist/css/theme.css" rel="stylesheet">
+    <link href="styles/mystyles.css" rel="stylesheet">
+
+    <!--
+    <link href="/bower_components/bootstrap/dist/css/bootstrap.css" rel="stylesheet">
     <link href="/bower_components/font-awesome/css/font-awesome.min.css" rel="stylesheet">
     <link href="styles/bootstrap-social.css" rel="stylesheet">
     <link href="styles/mystyles.css" rel="stylesheet">
+    -->
+
 <!-- endbuild -->
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
@@ -26,89 +31,90 @@
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
 
-
-    <style>
-        html {
-          position: relative;
-          min-height: 100%;
-        }
-        body {
-          margin-bottom: 60px;
-        }
-        #footer {
-          position: absolute;
-          bottom: 0;
-          width: 100%;
-          height: 60px;
-          background-color: #F5F5F5 ;
-        }
-
-    </style>
-
 </head>
 
 <body>
-    <header>
-        <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-            <div class="container">
-                <div class="navbar-header">
-                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <div class="container" ng-controller="HomeController">
+            <nav class="navbar navbar-fixed-top navbar-default" role="navigation" >
+                <div class="navbar-header" >
+                     <button type="button" class="navbar-toggle" ng-init="navCollapsed = true" ng-click="navCollapsed = !navCollapsed">
                         <span class="sr-only">Toggle navigation</span>
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <a class="navbar-brand" href="#/"><img src="images/logo.png" height=30 width=41></a>
+                    <a class="navbar-brand" href="#/">MOMS</a>
+                    <p class="navbar-text" ng-if="loginName">{{name+' '}}</p>
                 </div>
-                <div id="navbar" class="navbar-collapse collapse">
-                    <ul class="nav navbar-nav">
-                        <li class="active"><a href="#/">
+
+                <div class="collapse navbar-collapse" ng-class="{'in':!navCollapsed}">
+
+                    <ul class="nav navbar-nav navbar-left" role="tablist">
+                        <li role="tab" ng-class="{active:isSelected(1)}"><a ng-click="select(1)" href="#/">
                             <span class="glyphicon glyphicon-home"
                              aria-hidden="true"></span> Home</a></li>
-                        <li><a href="#/aboutus">
-                            <span class="glyphicon glyphicon-info-sign"
-                             aria-hidden="true"></span> About</a></li>
-                        <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown"
-                             role="button" aria-haspopup="true" aria-expanded="false">
-                             <span class="glyphicon glyphicon-list-alt"
-                             aria-hidden="true"></span> Menu <span class="caret"></span></a>
-                            <ul class="dropdown-menu">
-                                <li><a href="#/menu">Appetizers</a></li>
-                                <li><a href="#/menu">Main Courses</a></li>
-                                <li><a href="#/menu">Desserts</a></li>
-                                <li><a href="#/menu">Drinks</a></li>
-                                <li role="separator" class="divider"></li>
-                                <li class="dropdown-header">Specials</li>
-                                <li><a href="#/menu">Lunch Buffet</a></li>
-                                <li><a href="#/menu">Weekend Brunch</a></li>
-                            </ul>
-                        </li>
-                        <li><a href="#/contactus"><i class="fa fa-envelope-o"></i> Contact</a></li>
-                        <li><a href="#/oms">oms</a></li>
-                        <li><a href="#/system">system</a></li>
+                        <li role="tab" ng-class="{active:isSelected(2)}"><a ng-click="select(2)" href="#/aboutus">
+                            <span class="glyphicon glyphicon-envelope"
+                             aria-hidden="true"></span> Rev.Msg</a></li>
+                        <li role="tab" ng-class="{active:isSelected(3)}"><a ng-click="select(3)" href="#/contactus">
+                            <span class="glyphicon glyphicon-envelope"
+                             aria-hidden="true"></span> Send.Msg</a></li>
+                        <li role="tab" ng-class="{active:isSelected(4)}"><a ng-click="select(4);toOMS();">
+                            <i class="fa glyphicon glyphicon-globe"></i> OMS</a></li>
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
-                        <li>
-                            <a href="#/login">
+                        <li role="tab" ng-class="{active:isSelected(5)}">
+                            <a ng-click="select(5)" href="#/login">
                                 <span class="glyphicon glyphicon-log-out"></span> Logout
                             </a>
                         </li>
                     </ul>
                 </div>
-            </div>
-        </nav>
-    </header>
+            </nav>
 
-    <ng-view></ng-view>
-
-    <div id="footer" class="navbar-default">
-        <div class="container">
-            <p align="center" ng-if="loginName">{{name+' ('+emp_id+')님 환영합니다.'}}</p>
+                <div class="btn-group btn-group-justified">
+                  <a ng-click="toOMS();" class="btn btn-warning"><span class="glyphicon glyphicon-globe" aria-hidden="true"> OMS</span></a>
+                  <a href="#/aboutus" class="btn btn-warning"><span class="glyphicon glyphicon-envelope" aria-hidden="true"> Rev.Msg</span></a>
+                  <a href="#/contactus" class="btn btn-warning"><span class="glyphicon glyphicon-envelope" aria-hidden="true"> Send.Msg</span></a>
+                </div>
         </div>
-    </div>
 
+    <br>
+    <ng-view></ng-view>
+    <br>
+
+    <footer  class="row-footer">
+        <div class="container">
+            <div class="row">
+                <p style="padding:0px;"></p>
+                <div class="col-xs-12">
+                    <p align=center>© Copyright 2016 SKCC</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!--
+
+        <div class="container">
+            <div class="footer">
+            <div class="col-xs-12">
+            <hr>
+            <p align="center" ng-if="loginName">{{name+' ('+emp_id+')님 환영합니다.'}}</p>
+            </div>
+            </div>
+        </div>
+    </footer>
+-->
     
+<!--
+
+    <nav class="navbar navbar-default  navbar-fixed-bottom" role="navigation">
+        <div class="container text-center">
+            <p class="navbar-text col-md-12 col-sm-12 col-xs-12">&copy; SK주식회사 CC</p>
+        </div>
+    </nav>
+-->
 
     <script src="bower_components/angular/angular.min.js"></script>
     <script src="bower_components/angular-route/angular-route.min.js"></script>

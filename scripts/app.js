@@ -41,11 +41,6 @@ confusionApp
                         controller: 'HomeController'
 
                     })
-                     .when('/oms', {
-                        templateUrl: './html/oms.html',
-                        controller: 'OmsController'
-
-                    })
                      .when('/system', {
                         templateUrl: './html/system.html',
                         controller: 'SystemController'

@@ -85,18 +85,33 @@ confusionApp
 
         };
 
+        // OMS 시스템 KEY를 가져온다.
+        service.Key = function (username, callback) {
+            $http.post(baseURL+'api/sysKey', { username: username})
+                .success(function (data,status,headers, config) {
+                    var responseData = JSON.parse(data);
+                    callback(responseData);
+            });
+        };
+
+
         service.SetCredentials = function (username, password) {
+
             var authdata = Base64.encode(username + ':' + password);
 
             $rootScope.globals = {
                 currentUser: {
                     username: username,
                     authdata: authdata
+
                 }
             };
 
             $http.defaults.headers.common['Authorization'] = 'Basic ' + authdata; // jshint ignore:line
+
             $cookieStore.put('globals', $rootScope.globals);
+
+
         };
 
         service.ClearCredentials = function () {

@@ -91,10 +91,52 @@ confusionApp
 
 
         .controller('HomeController',
-            ['$scope',
-            function ($scope) {
+            ['$scope','$rootScope','$cookieStore', '$window', '$location', 'AuthenticationService',
+            function ($scope, $rootScope, $cookieStore, $window, $location, AuthenticationService) {
 
-            }])
+            $scope.select = function(setTab) {
+                $scope.tab = setTab;
+                $scope.navCollapsed = true;
+            };
+
+            $scope.isSelected = function (checkTab) {
+                return ($scope.tab === checkTab);
+            };
+
+            $scope.toOMS = function () {
+
+                var username = '';
+
+                $rootScope.globals = $cookieStore.get('globals') || {};
+                if ($rootScope.globals.currentUser) {
+                    username = $rootScope.globals.currentUser.username;
+                }
+
+                AuthenticationService.Key(username, function(res) {
+
+                    if(res.response.dataSet[0].fields[0].value == undefined || res.response.dataSet[0].fields[0].value == null){
+                        alert('Login !')
+
+                    }else{
+                        var sysKey = res.response.dataSet[0].fields[0].value;
+
+                        //$scope.omsUrl = $sce.trustAsResourceUrl('https://sos.skcc.com?key='+sysKey);
+
+
+                        $window.location.href = 'https://msos.skcc.com?key='+sysKey;
+                        //$location.replace('https://sos.skcc.com?key='+sysKey);
+                        //$scope.omsurl = 'https://sos.skcc.com?key='+sysKey;
+
+
+
+                    }
+
+                });
+
+            };
+
+
+        }])
 
 
         .controller('LoginController',
@@ -148,6 +190,8 @@ confusionApp
                         }
                     });
                 };
+
+
             }])
 
         .controller('AboutusController',
